@@ -1,0 +1,87 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+const int MAX_VAL = 1000001; 
+void update(int i, int add, vector<int>& BIT) 
+{ 
+    while (i > 0 && i < BIT.size()) 
+    { 
+        BIT[i] += add; 
+        i = i + (i & (-i)); 
+    } 
+} 
+int sum(int i, vector<int>& BIT) 
+{ 
+    int ans = 0; 
+    while (i > 0) 
+    { 
+        ans += BIT[i]; 
+        i = i - (i & (-i)); 
+    } 
+  
+    return ans; 
+}
+int findKthSmallest(int k, vector<int> &BIT) 
+{
+    int l = 0; 
+    int h = BIT.size(); 
+    while (l < h) 
+    { 
+        int mid = (l + h) / 2; 
+        if (k <= sum(mid, BIT)) 
+            h = mid; 
+        else
+            l = mid+1; 
+    } 
+  
+    return l; 
+} 
+void insertElement(int x, vector<int> &BIT) 
+{ 
+    update(x, 1, BIT); 
+} 
+void deleteElement(int x, vector<int> &BIT) 
+{ 
+    update(x, -1, BIT); 
+} 
+int findRank(int x, vector<int> &BIT) 
+{ 
+    return sum(x, BIT); 
+} 
+int main() 
+{ 
+    ios_base::sync_with_stdio(false); 
+    cin.tie(NULL);
+    vector<int> BIT(MAX_VAL); 
+    int n,q;
+    cin>>n>>q;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        insertElement(x, BIT);
+    }
+    while(q--)
+    {
+        int k;
+        cin>>k;
+        if(k>0)
+        insertElement(k,BIT);
+        else
+        {
+            int l=findKthSmallest(abs(k),BIT);
+            deleteElement(l,BIT);
+        }
+    }
+    int count=0;
+    for(auto itr : BIT)
+    {
+        if(itr)
+        {
+            cout<<count;
+            return 0;
+        }
+        count++;
+    }
+    cout<<0<<'\n';
+    return 0; 
+} 

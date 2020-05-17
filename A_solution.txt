@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        long long a,b,c,d;
+        cin>>a>>b>>c>>d;
+        if(b>=a)
+        {
+            cout<<b<<'\n';
+            continue;
+        }
+        long long k=b;
+        long long na=b+c;
+        long long ns=b+d;
+        if(ns>=na)
+        {
+            cout<<-1<<'\n';
+            continue;
+        }
+        long long ti=na-ns;
+        long long loo=(a-b)/ti;
+        if((a-b)%ti)
+        loo++;
+        cout<<b+loo*c<<'\n';
+    }
+    return 0;
+}

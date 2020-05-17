@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std; 
+  
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+    double n;
+    cin>>n;
+    n=(double)180/(2*n);
+    n=n/57.295779513;
+    cout << fixed << setprecision(6) << 1/tan(n)<<endl;
+   // cout << 1/tan(n)<<'\n'; 
+    }
+    return 0; 
+} 
